@@ -1,35 +1,20 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 module.exports = {
     entry: {
         main: "./src/index.js",
         vendor: "./src/vendor.js"
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/template.html" // for dynamically adding script file in html
-        })
-    ],
     module: {
         rules: [
             {
-                test: /\.scss$/,
-                use: [
-                    "style-loader", //3. Inject styles into DOM
-                    "css-loader", //2. Turns css into commonjs
-                    "sass-loader"  //1. Turns sass into css
-                ]
-            },
-            {
                 test: /\.html$/,
-                use: ["html-loader"] 
+                use: ["html-loader"]  //converts <img src="/assest.img" /> to require('./assest.img').
             },
             {
                 test: /\.(svg|png|jpg|gif)$/,
                 use: {
-                    loader: "file-loader",
+                    loader: "file-loader", //handles the require(). Moves the file in the mentioned folder. Adds the img in html dynamically
                     options: {
-                        name: "[name].[hash].[ext]",
+                        name: "[name].[hash].[ext]", 
                         outputPath: "imgs"
                     }
                 }
